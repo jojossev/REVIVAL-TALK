@@ -47,9 +47,17 @@ export const NoDataFound = () => {
   return <div className='flexCenter text-center my-5 font-[600] text-[24px] textPrimary' style={{ height: '50vh' }}>{translate('nodatafound')}</div>
 }
 
+export const getDateLocale = () => {
+  const code = store.getState().languages?.currentLanguage?.code;
+  if (code === 'fr') {
+    return 'fr-FR';
+  }
+  return 'en-US';
+};
+
 export const formatDate = (dateString) => {
-  const options = { day: 'numeric', month: 'numeric', year: 'numeric', };
-  return new Date(dateString).toLocaleDateString('en-IN', options);
+  const options = { day: 'numeric', month: 'numeric', year: 'numeric' };
+  return new Date(dateString).toLocaleDateString(getDateLocale(), options);
 };
 
 // placholder image

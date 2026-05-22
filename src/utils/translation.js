@@ -1,19 +1,24 @@
 "use client";
 import { store } from "@/components/store/store";
-import localeTranslations from './locale/en.json';
+import enTranslations from './locale/en.json';
+import frTranslations from './locale/fr.json';
+
+const localeFallbacks = {
+    en: enTranslations,
+    fr: frTranslations,
+};
 
 export const translate = (label) => {
-
-    /*Set default Label only if you want custom label */
-    let langLabel =
-        store.getState().languages?.currentLanguageLabels.data &&
-        store.getState().languages?.currentLanguageLabels.data[label];
-    let enTranslation = localeTranslations
-
+    const langCode =
+        store.getState().languages?.currentLanguage?.code || 'fr';
+    const langLabel =
+        store.getState().languages?.currentLanguageLabels?.data?.[label];
 
     if (langLabel) {
         return langLabel;
-    } else {
-        return enTranslation[label];
     }
+
+    const fallback =
+        localeFallbacks[langCode] || localeFallbacks.fr || enTranslations;
+    return fallback[label] ?? enTranslations[label] ?? label;
 };

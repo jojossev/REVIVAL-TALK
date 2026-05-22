@@ -456,5 +456,11 @@
     "feeds": "Feeds",
     "notificationBlocked": "You have blocked notifications. You can enable them later from your browser settings.",
     "loginFirstBeforeDeleteAcc": "Please login first before deleting your account.",
-    "anErrorOccurredWhileDeletingUserAccount": "An error occurred while deleting user account."
+    "anErrorOccurredWhileDeletingUserAccount": "An error occurred while deleting user account.",
+    "noneSelected": "None",
+    "selectedTags": "Selected tags:",
+    "selectedCategories": "Selected categories:",
+    "tagNotFoundNoCreate": "Tag not found, and tag creation is not configured.",
+    "failedToCreateTagMsg": "Failed to create tag.",
+    "defaultTitle": "Page"
 }

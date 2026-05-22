@@ -4,7 +4,7 @@ import Layout from '../layout/Layout'
 import Breadcrumb from '../breadcrumb/Breadcrumb'
 import Image from 'next/image'
 import ManagesNewsSkeleton from '../skeletons/ManagesNewsSkeleton'
-import { currentLangCode, NoDataFound, placeholderImage, truncateText } from '@/utils/helpers'
+import { currentLangCode, getDateLocale, NoDataFound, placeholderImage, truncateText } from '@/utils/helpers'
 import { translate } from '@/utils/translation'
 import { deleteNewsApi, getNewsApi, getUserDraftedNewsApi } from '@/utils/api/api'
 import { useRouter } from 'next/router'
@@ -320,7 +320,7 @@ const NewsCard = ({ element, expireIcon, deactivateIcon, onEdit, onDelete }) => 
                     <div>
                         <h2 className='textPrimary text-lg font-bold'>{element?.category?.category_name}</h2>
                         <time className='textSecondary font-medium text-sm' dateTime={element?.created_at}>
-                            {new Date(element?.created_at).toLocaleString('en-us', {
+                            {new Date(element?.created_at).toLocaleString(getDateLocale(), {
                                 day: 'numeric',
                                 month: 'short',
                                 year: 'numeric'

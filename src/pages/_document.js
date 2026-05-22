@@ -3,7 +3,7 @@ import Document, { Html, Head, Main, NextScript } from "next/document";
 const CustomDocument = () => {
   return (
     <Html
-      lang="en"
+      lang="fr"
       version={process.env.NEXT_PUBLIC_WEB_VERSION}
       seo={process.env.NEXT_PUBLIC_SEO}
       dir="ltr"

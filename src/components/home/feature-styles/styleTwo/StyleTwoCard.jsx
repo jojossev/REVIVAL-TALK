@@ -1,6 +1,6 @@
 'use client'
 import VideoPlayIcon from '@/components/commonComponents/VideoPlayIcon';
-import { currentLangCode, placeholderImage, truncateText } from '@/utils/helpers';
+import { currentLangCode, getDateLocale, placeholderImage, truncateText } from '@/utils/helpers';
 import { translate } from '@/utils/translation';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -30,7 +30,7 @@ const StyleTwoCard = ({ Data, middleCard, videosNewsCard, breakingNewsCard, rssF
                             newsDate &&
                             <div className='flex items-center gap-[10px] font-[500]'>
                                 <span> <LuCalendarDays size={20} /></span>
-                                <span className='text-base lg:text-sm 2xl:text-base'>{new Date(newsDate).toLocaleString('en-us', {
+                                <span className='text-base lg:text-sm 2xl:text-base'>{new Date(newsDate).toLocaleString(getDateLocale(), {
                                     day: 'numeric',
                                     month: 'short',
                                     year: 'numeric'
@@ -56,7 +56,7 @@ const StyleTwoCard = ({ Data, middleCard, videosNewsCard, breakingNewsCard, rssF
                             newsDate &&
                             <div className='flex items-center gap-[10px] font-[500]'>
                                 <span> <LuCalendarDays size={20} /></span>
-                                <span className='text-base lg:text-sm 2xl:text-base'>{new Date(newsDate).toLocaleString('en-us', {
+                                <span className='text-base lg:text-sm 2xl:text-base'>{new Date(newsDate).toLocaleString(getDateLocale(), {
                                     day: 'numeric',
                                     month: 'short',
                                     year: 'numeric'

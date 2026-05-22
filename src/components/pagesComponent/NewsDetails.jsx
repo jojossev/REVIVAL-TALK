@@ -18,7 +18,7 @@ import { useSelector } from 'react-redux'
 import { currentLanguageSelector } from '../store/reducers/languageReducer'
 import { settingsSelector } from '../store/reducers/settingsReducer'
 import { getBreaingNewsApi, getNewsApi, getNewsDetailsAdSpacesApi, setBookmarkApi, setBreakingNewsViewApi, setLikeDisLikeApi, setNewsViewApi } from '@/utils/api/api'
-import { calculateReadTime, currentLangCode, defaultLanguageCode, extractTextFromHTML, getDirection, isLogin, NoDataFound, placeholderImage, } from '@/utils/helpers';
+import { calculateReadTime, currentLangCode, defaultLanguageCode, extractTextFromHTML, getDateLocale, getDirection, isLogin, NoDataFound, placeholderImage, } from '@/utils/helpers';
 import { translate } from '@/utils/translation';
 import { GoTag } from 'react-icons/go';
 import toast from 'react-hot-toast'
@@ -387,7 +387,7 @@ const NewsDetails = ({ breakingNews }) => {
                               <>
                                 <div className='flex items-center gap-1 textPrimary font-[600]'>
                                   <FiCalendar size={18} />
-                                  <span>{new Date(data && data?.published_date || data && data?.date).toLocaleString('en-us', {
+                                  <span>{new Date(data && data?.published_date || data && data?.date).toLocaleString(getDateLocale(), {
                                     day: 'numeric',
                                     month: 'short',
                                     year: 'numeric'

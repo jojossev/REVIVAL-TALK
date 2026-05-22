@@ -106,7 +106,7 @@ const TagSelect = ({
         }
 
         if (!onCreateTag) {
-            setCreateError("Tag not found, and tag creation is not configured.")
+            setCreateError(translate('tagNotFoundNoCreate'))
             return
         }
 
@@ -133,7 +133,7 @@ const TagSelect = ({
                 err?.message ??
                 err?.response?.data?.message ??
                 err?.response?.data?.error ??
-                "Failed to create tag."
+                translate('failedToCreateTagMsg')
 
             if (status === 409 || /already exists/i.test(message)) {
                 // Optionally auto-select the existing one if present in current list

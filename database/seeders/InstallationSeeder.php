@@ -31,7 +31,7 @@ class InstallationSeeder extends Seeder
 
         $settingsData = [
             ['type' => 'app_version', 'message' => '3.2.7'],
-            ['type' => 'default_language', 'message' => '1'],
+            ['type' => 'default_language', 'message' => '1'], // French (id 1) by default
             ['type' => 'system_timezone', 'message' => 'Asia/Kolkata'],
             ['type' => 'app_name', 'message' => 'News'],
             ['type' => 'primary_color', 'message' => '#000000'],
@@ -92,6 +92,17 @@ class InstallationSeeder extends Seeder
         $languagesData = [
             [
                 'id' => 1,
+                'language' => 'Français',
+                'display_name' => 'Français',
+                'code' => 'fr',
+                'status' => 1,
+                'isRTL' => 0,
+                'image' => 'flags/en.webp',
+                'updated_at' => now(),
+                'created_at' => now(),
+            ],
+            [
+                'id' => 2,
                 'language' => 'English (US)',
                 'display_name' => 'English (US)',
                 'code' => 'en',
@@ -107,14 +118,22 @@ class InstallationSeeder extends Seeder
             Language::insert($languagesData);
         }
 
+        $privacyPolicyContent = file_exists(database_path('seeders/content/privacy_policy_fr.html'))
+            ? file_get_contents(database_path('seeders/content/privacy_policy_fr.html'))
+            : '<p style="text-align: left;">POLITIQUE DE L\'APPLICATION D\'ACTUALITÉS ET DU CONTENU</p>';
+
+        $termsConditionsContent = file_exists(database_path('seeders/content/terms_conditions_fr.html'))
+            ? file_get_contents(database_path('seeders/content/terms_conditions_fr.html'))
+            : '<p style="text-align: left;"><strong>1. Conditions générales</strong></p>';
+
         $pagesData = [
             [
-                'title' => 'Privacy Policy',
+                'title' => 'Politique de confidentialité',
                 'slug' => 'privacy-policy',
-                'meta_description' => 'Privacy Policy',
-                'meta_keywords' => 'Policy',
+                'meta_description' => 'Politique de confidentialité REVIVAL TALK',
+                'meta_keywords' => 'Politique, confidentialité, REVIVAL TALK',
                 'is_custom' => 0,
-                'page_content' => '<p style="text-align: left;">NEWS APP &amp; CONTENT POLICY</p>',
+                'page_content' => $privacyPolicyContent,
                 'page_type' => 'privacy-policy',
                 'language_id' => 1,
                 'page_icon' => '',
@@ -122,18 +141,18 @@ class InstallationSeeder extends Seeder
                 'is_privacypolicy' => 1,
                 'status' => 1,
                 'schema_markup' => '',
-                'meta_title' => '',
+                'meta_title' => 'Politique de confidentialité | REVIVAL TALK',
                 'og_image' => '',
                 'updated_at' => now(),
                 'created_at' => now(),
             ],
             [
-                'title' => 'Terms & Conditions',
+                'title' => 'Conditions générales d\'utilisation',
                 'slug' => 'terms-condition',
-                'meta_description' => 'Terms & Conditions',
-                'meta_keywords' => 'Terms',
+                'meta_description' => 'Conditions générales d\'utilisation REVIVAL TALK',
+                'meta_keywords' => 'Conditions, utilisation, REVIVAL TALK',
                 'is_custom' => 0,
-                'page_content' => '<p style="text-align: left;"><strong>1. Terms Conditions</strong></p>',
+                'page_content' => $termsConditionsContent,
                 'page_type' => 'terms-condition',
                 'language_id' => 1,
                 'page_icon' => '',
@@ -141,18 +160,18 @@ class InstallationSeeder extends Seeder
                 'is_privacypolicy' => 0,
                 'status' => 1,
                 'schema_markup' => '',
-                'meta_title' => '',
+                'meta_title' => 'Conditions générales | REVIVAL TALK',
                 'og_image' => '',
                 'updated_at' => now(),
                 'created_at' => now(),
             ],
             [
-                'title' => 'Contact Us',
+                'title' => 'Contact',
                 'slug' => 'contact-us',
-                'meta_description' => 'Contact Us',
+                'meta_description' => 'Contact',
                 'meta_keywords' => 'Contact',
                 'is_custom' => 0,
-                'page_content' => '<p style="text-align: center;"><strong>How can we help you?</strong></p>',
+                'page_content' => '<p style="text-align: center;"><strong>Comment pouvons-nous vous aider ?</strong></p>',
                 'page_type' => 'contact-us',
                 'language_id' => 1,
                 'page_icon' => '',
@@ -166,12 +185,12 @@ class InstallationSeeder extends Seeder
                 'created_at' => now(),
             ],
             [
-                'title' => 'About Us',
+                'title' => 'À propos',
                 'slug' => 'about-us',
-                'meta_description' => 'About Us',
-                'meta_keywords' => 'About',
+                'meta_description' => 'À propos',
+                'meta_keywords' => 'À propos',
                 'is_custom' => 0,
-                'page_content' => '<p><strong>About Us:</strong></p>',
+                'page_content' => '<p><strong>À propos de nous :</strong></p>',
                 'page_type' => 'about-us',
                 'language_id' => 1,
                 'page_icon' => '',

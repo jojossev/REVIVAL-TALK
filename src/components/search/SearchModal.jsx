@@ -15,7 +15,7 @@ import { useRouter } from 'next/router'
 import { settingsSelector } from '../store/reducers/settingsReducer'
 import { getNewsApi } from '@/utils/api/api'
 import LoadMoreBtn from '../commonComponents/loadermoreBtn/LoadmoreBtn'
-import { currentLangCode, formatDate, placeholderImage, truncateText } from '@/utils/helpers'
+import { currentLangCode, formatDate, getDateLocale, placeholderImage, truncateText } from '@/utils/helpers'
 import { translate } from '@/utils/translation';
 import Skeleton from 'react-loading-skeleton'
 import Link from 'next/link'
@@ -394,7 +394,7 @@ const SearchModal = ({ onClose = () => { } }) => {
                                                                 </div>
                                                                 <div className='date text-sm sm:text-base'>
                                                                     <span className='textSecondary font-normal'>
-                                                                        {new Date(element?.published_date || element?.date).toLocaleString('en-us', {
+                                                                        {new Date(element?.published_date || element?.date).toLocaleString(getDateLocale(), {
                                                                             day: 'numeric',
                                                                             month: 'short',
                                                                             year: 'numeric'

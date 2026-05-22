@@ -8,7 +8,7 @@ import RelatedNewSections from '@/components/relatedNews/RelatedNewSections'
 import { useSelector } from 'react-redux'
 import { settingsSelector } from '@/components/store/reducers/settingsReducer'
 import { getVideoNewsApi, setLikeDisLikeApi } from '@/utils/api/api'
-import { isLogin, NoDataFound, placeholderImage, } from '@/utils/helpers';
+import { getDateLocale, isLogin, NoDataFound, placeholderImage, } from '@/utils/helpers';
 import { translate } from '@/utils/translation';
 import VideoPlayer from '../../commonComponents/videoplayer/HLSPlayer.jsx'
 import DashPlayer from '../../commonComponents/videoplayer/DashPlayer.jsx'
@@ -305,7 +305,7 @@ const VideoDetails = () => {
                                                                     data && data?.published_date &&
                                                                     <div className='flex items-center gap-1 textPrimary font-[600]'>
                                                                         <FiCalendar size={18} />
-                                                                        <span>{new Date(data && data?.published_date || data && data?.date).toLocaleString('en-us', {
+                                                                        <span>{new Date(data && data?.published_date || data && data?.date).toLocaleString(getDateLocale(), {
                                                                             day: 'numeric',
                                                                             month: 'short',
                                                                             year: 'numeric'

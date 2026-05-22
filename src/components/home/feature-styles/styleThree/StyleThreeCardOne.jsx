@@ -1,6 +1,6 @@
 'use client'
 import VideoPlayIcon from '@/components/commonComponents/VideoPlayIcon';
-import { currentLangCode, placeholderImage, stripHtmlTags, } from '@/utils/helpers';
+import { currentLangCode, getDateLocale, placeholderImage, stripHtmlTags, } from '@/utils/helpers';
 import Image from 'next/image';
 import Link from 'next/link';
 import { LuCalendarDays } from 'react-icons/lu';
@@ -26,7 +26,7 @@ const StyleThreeCardOne = ({ Data, breakingNewsCard, videoNewsCard, rssFeedCard 
                     </div>
                     {
                         newsDate &&
-                        <span className='flex items-center gap-2 textPrimary font-[500]'><LuCalendarDays size={20} />{new Date(newsDate).toLocaleString('en-us', {
+                        <span className='flex items-center gap-2 textPrimary font-[500]'><LuCalendarDays size={20} />{new Date(newsDate).toLocaleString(getDateLocale(), {
                             day: 'numeric',
                             month: 'short',
                             year: 'numeric'
@@ -69,7 +69,7 @@ const StyleThreeCardOne = ({ Data, breakingNewsCard, videoNewsCard, rssFeedCard 
                         }
                         {
                             newsDate &&
-                            <span className='flex items-center gap-2 textPrimary font-[500]'><LuCalendarDays size={20} />{new Date(newsDate).toLocaleString('en-us', {
+                            <span className='flex items-center gap-2 textPrimary font-[500]'><LuCalendarDays size={20} />{new Date(newsDate).toLocaleString(getDateLocale(), {
                                 day: 'numeric',
                                 month: 'short',
                                 year: 'numeric'

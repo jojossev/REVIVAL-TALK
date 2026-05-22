@@ -1,4 +1,4 @@
-import { currentLangCode, placeholderImage, stripHtmlTags, } from '@/utils/helpers';
+import { currentLangCode, getDateLocale, placeholderImage, stripHtmlTags, } from '@/utils/helpers';
 import { translate } from '@/utils/translation';
 import Image from 'next/image'
 import Link from 'next/link';
@@ -32,7 +32,7 @@ const NewsHorizontalCard = ({ news, isLoading = false }) => {
                     newsDate &&
                     <div className='flex items-center gap-[10px] font-[500] textSecondary'>
                         <span> <LuCalendarDays size={20} /></span>
-                        <span>{new Date(newsDate).toLocaleString('en-us', {
+                        <span>{new Date(newsDate).toLocaleString(getDateLocale(), {
                             day: 'numeric',
                             month: 'short',
                             year: 'numeric'

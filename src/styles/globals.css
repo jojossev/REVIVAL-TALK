@@ -1013,6 +1013,35 @@ input[type=number]::-webkit-outer-spin-button {
   margin-bottom: 1em;
 }
 
+.revival-legal-page h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.revival-legal-page h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.revival-legal-page h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-top: 1rem;
+  margin-bottom: 0.35rem;
+}
+
+.revival-legal-page ul {
+  padding-left: 1.25rem;
+  list-style-type: disc;
+}
+
+.revival-legal-page li {
+  margin-bottom: 0.35rem;
+}
+
 
 input[type="checkbox"] {
   accent-color: var(--primary-color);
