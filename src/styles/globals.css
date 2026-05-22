@@ -1013,10 +1013,74 @@ input[type=number]::-webkit-outer-spin-button {
   margin-bottom: 1em;
 }
 
-.revival-legal-page h1 {
-  font-size: 1.75rem;
-  font-weight: 700;
-  margin-bottom: 0.75rem;
+@keyframes revival-title-gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes revival-title-glow {
+  0%,
+  100% {
+    text-shadow: 0 0 12px color-mix(in srgb, var(--primary-color) 35%, transparent);
+  }
+
+  50% {
+    text-shadow: 0 0 22px color-mix(in srgb, var(--primary-color) 55%, transparent);
+  }
+}
+
+@keyframes revival-subtitle-fade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.policy-page-section .revival-legal-page h1,
+.rich-text-content .revival-legal-page h1 {
+  font-family: "Bebas Neue", "Zilla Slab", serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  background: linear-gradient(
+    90deg,
+    var(--primary-color, #ee2934) 0%,
+    #1b2d51 35%,
+    var(--primary-color, #ee2934) 70%,
+    #c9a227 100%
+  );
+  background-size: 250% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: revival-title-gradient 5s ease-in-out infinite,
+    revival-title-glow 3s ease-in-out infinite;
+}
+
+.policy-page-section .revival-legal-page > p:first-of-type strong,
+.rich-text-content .revival-legal-page > p:first-of-type strong {
+  font-family: "Bebas Neue", "Zilla Slab", serif;
+  font-size: 1.35rem;
+  letter-spacing: 0.12em;
+  color: var(--primary-color);
+  animation: revival-subtitle-fade 0.8s ease-out both;
 }
 
 .revival-legal-page h2 {
@@ -1024,6 +1088,7 @@ input[type=number]::-webkit-outer-spin-button {
   font-weight: 700;
   margin-top: 1.5rem;
   margin-bottom: 0.5rem;
+  animation: revival-subtitle-fade 0.6s ease-out both;
 }
 
 .revival-legal-page h3 {
@@ -1040,6 +1105,24 @@ input[type=number]::-webkit-outer-spin-button {
 
 .revival-legal-page li {
   margin-bottom: 0.35rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .policy-page-section .revival-legal-page h1,
+  .rich-text-content .revival-legal-page h1 {
+    animation: none;
+    background: none;
+    -webkit-background-clip: unset;
+    background-clip: unset;
+    color: var(--primary-color, #ee2934);
+    text-shadow: none;
+  }
+
+  .revival-legal-page h2,
+  .revival-legal-page > p:first-of-type strong {
+    animation: none;
+  }
 }
 
 

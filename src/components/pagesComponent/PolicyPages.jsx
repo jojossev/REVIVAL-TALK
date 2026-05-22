@@ -54,8 +54,11 @@ const PolicyPages = ({ privacyPolicyPage }) => {
       {
         loading ? <DetailPageSkeleton /> :
 
-          <section className='morePagesSect container mt-8 md:mt-12 pb-1'>
-            <RichTextContent content={privacyPolicyPage ? data?.privacy_policy?.page_content : data?.terms_policy?.page_content} />
+          <section className='morePagesSect container mt-8 md:mt-12 pb-1 policy-page-section'>
+            <RichTextContent
+              className="policy-page-rich-text"
+              content={privacyPolicyPage ? data?.privacy_policy?.page_content : data?.terms_policy?.page_content}
+            />
           </section>
       }
     </Layout>

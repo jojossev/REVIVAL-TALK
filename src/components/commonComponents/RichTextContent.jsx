@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
 
-const RichTextContent = ({ content }) => {
+const RichTextContent = ({ content, className = "" }) => {
     return (
-        <div className="rich-text-content">
+        <div className={`rich-text-content ${className}`.trim()}>
             <div
                 dangerouslySetInnerHTML={{
                     __html: content || "",
