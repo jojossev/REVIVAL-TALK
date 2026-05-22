@@ -463,12 +463,14 @@ const Layout = ({ children }) => {
 
                 if (data && data?.data?.status === 0) {
                     toast.error(translate('deactiveMsg'))
-                    signOut(authentication)
+                    const signOutPromise = authentication
+                        ? signOut(authentication)
+                        : Promise.resolve()
+                    signOutPromise
                         .then(() => {
                             logoutUser()
                             window.recaptchaVerifier = null
                             router.push(`/${currLangCode ? currLangCode : defaultLangCode}`)
-                            // toast.success(translate('loginOutMsg'))
                         })
                         .catch(error => {
                             toast.error(error.message || 'An error occurred while signing out.')

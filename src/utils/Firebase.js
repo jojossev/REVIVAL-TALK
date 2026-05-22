@@ -1,45 +1,35 @@
 'use client'
-import { initializeApp, getApps, getApp } from 'firebase/app'
 import { getMessaging, getToken, onMessage, isSupported } from 'firebase/messaging'
-import firebase from "firebase/compat/app"
-import { getAuth } from "firebase/auth";
 import toast from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadFcmToken } from '@/components/store/reducers/settingsReducer';
 import { checkNotificationPermission, notificationRequestSelector } from '@/components/store/reducers/CheckPermissionsReducer';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { getFirebaseApp, getFirebaseAuth, isFirebaseConfigured } from './firebaseClient';
 
 
 const FirebaseData = () => {
 
   const dispatch = useDispatch()
+  const [authentication, setAuthentication] = useState(null)
 
   const notificationPermission = useSelector(notificationRequestSelector);
 
-  let firebaseConfig = {
-    apiKey: process.env.NEXT_PUBLIC_API_KEY,
-    authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
-    projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
-    storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET,
-    messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
-    appId: process.env.NEXT_PUBLIC_APP_ID,
-    measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID
-  }
-
-  if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
-  }
-
-  const authentication = getAuth();
-
-
-
-  const firebaseApp = !getApps().length
-    ? initializeApp(firebaseConfig)
-    : getApp();
+  useEffect(() => {
+    setAuthentication(getFirebaseAuth())
+  }, [])
 
   const messagingInstance = async () => {
+    if (!isFirebaseConfigured()) {
+      return null
+    }
+
     try {
+      const firebaseApp = getFirebaseApp()
+      if (!firebaseApp) {
+        return null
+      }
+
       const isSupportedBrowser = await isSupported();
       if (isSupportedBrowser) {
         return getMessaging(firebaseApp);
@@ -48,11 +38,13 @@ const FirebaseData = () => {
       console.error('Error checking messaging support:', err);
       return null;
     }
+
+    return null
   };
+
   const fetchToken = async (setTokenFound = () => { }, setFcmToken = () => { }) => {
     const messaging = await messagingInstance();
     if (!messaging) {
-      console.error('Messaging not supported.');
       return;
     }
 
@@ -76,7 +68,6 @@ const FirebaseData = () => {
           })
           .catch((err) => {
             console.error('Error retrieving token:', err);
-            // If the error is "no active Service Worker", try to register the service worker again
             if (err.message.includes('no active Service Worker')) {
               registerServiceWorker(setTokenFound, setFcmToken);
             }
@@ -93,7 +84,7 @@ const FirebaseData = () => {
   };
 
   useEffect(() => {
-    if (notificationPermission) {
+    if (notificationPermission && isFirebaseConfigured()) {
       fetchToken();
     }
   }, [notificationPermission]);
@@ -104,7 +95,6 @@ const FirebaseData = () => {
         .register('/firebase-messaging-sw.js')
         .then((registration) => {
           console.log('Service Worker registration successful with scope: ', registration.scope);
-          // After successful registration, try to fetch the token again
           fetchToken(setTokenFound, setFcmToken);
         })
         .catch((err) => {
@@ -121,14 +111,19 @@ const FirebaseData = () => {
           resolve(payload);
         });
       });
-    } else {
-      console.error('Messaging not supported.');
-      return null;
     }
+
+    return null;
   };
+
   const signOut = () => {
-    return authentication.signOut();
+    const auth = authentication || getFirebaseAuth()
+    if (!auth) {
+      return Promise.resolve()
+    }
+    return auth.signOut();
   };
+
   return { authentication, fetchToken, onMessageListener, signOut }
 }
 

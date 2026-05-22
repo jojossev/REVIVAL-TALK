@@ -17,7 +17,8 @@ import { logoutUser, userDataSelector } from '../store/reducers/userReducer'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/router'
 import FirebaseData from '@/utils/Firebase'
-import { getAuth, signOut } from 'firebase/auth'
+import { getFirebaseAuth } from '@/utils/firebaseClient'
+import { signOut } from 'firebase/auth'
 import { deleteAccountApi } from '@/utils/api/api'
 import { themeSelector } from '../store/reducers/CheckThemeReducer'
 import SearchModal from '../search/SearchModal'
@@ -50,7 +51,7 @@ const Header = ({ totalMorePages, morePagesOffset, setMorePagesOffset, setIsLoad
 
   const router = usePathname();
   const navigate = useRouter();
-  const auth = getAuth()
+  const auth = getFirebaseAuth()
 
   const settingsData = useSelector(settingsSelector);
 
@@ -83,6 +84,14 @@ const Header = ({ totalMorePages, morePagesOffset, setMorePagesOffset, setIsLoad
   }
 
   const handleSignOut = async (modal) => {
+    if (!authentication) {
+      logoutUser()
+      navigate.push(`/${currLangCode ? currLangCode : defaultLangCode}`)
+      setLogoutConfrm(false)
+      setDeleteAccConfrm(false)
+      return
+    }
+
     try {
       await new Promise((resolve, reject) => {
         signOut(authentication)
@@ -130,6 +139,12 @@ const Header = ({ totalMorePages, morePagesOffset, setMorePagesOffset, setIsLoad
     e.preventDefault()
     try {
       await new Promise((resolve, reject) => {
+        if (!auth) {
+          toast.error(translate('loginFirstBeforeDeleteAcc'))
+          reject(new Error('Firebase not configured'))
+          return
+        }
+
         const user = auth.currentUser
 
         if (user) {

@@ -5,7 +5,8 @@ import { IoEye } from "react-icons/io5";
 import { IoMdEyeOff } from "react-icons/io";
 import { getAuthErrorMessage, defaultLanguageCode, currentLangCode, } from '@/utils/helpers';
 import { translate } from '@/utils/translation';
-import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, signOut } from 'firebase/auth'
+import { createUserWithEmailAndPassword, sendEmailVerification, signOut } from 'firebase/auth'
+import { getFirebaseAuth } from '@/utils/firebaseClient'
 import toast from 'react-hot-toast';
 import { updateUserNameData } from '../store/reducers/userReducer';
 import { FaArrowLeft } from 'react-icons/fa6';
@@ -44,7 +45,7 @@ const RegisterForm = ({ setLoginModal, setRegisterModal }) => {
     )
     const [isValidForm, setIsValidForm] = useState(false)
     const [isSubmit, setIsSubmit] = useState(false)
-    const auth = getAuth()
+    const auth = getFirebaseAuth()
 
     const handleChange = e => {
         const { name, value } = e.target

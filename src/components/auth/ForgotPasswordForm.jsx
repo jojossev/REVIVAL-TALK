@@ -2,7 +2,8 @@
 import { getAuthErrorMessage, } from '@/utils/helpers';
 import { translate } from '@/utils/translation';
 import React, { useState, useEffect } from 'react'
-import { getAuth, sendPasswordResetEmail } from 'firebase/auth'
+import { sendPasswordResetEmail } from 'firebase/auth'
+import { getFirebaseAuth } from '@/utils/firebaseClient'
 import toast from 'react-hot-toast'
 
 const ForgotPasswordForm = ({ setForgotPassModal, setLoginModal }) => {
@@ -27,7 +28,11 @@ const ForgotPasswordForm = ({ setForgotPassModal, setLoginModal }) => {
         // setFormErrors(validate(formValues))
         setFormErrors(formValues)
         setIsSubmit(true)
-        const auth = getAuth()
+        const auth = getFirebaseAuth()
+        if (!auth) {
+            toast.error(translate('internetmsg'))
+            return
+        }
         await sendPasswordResetEmail(auth, formValues.email)
             .then(userCredential => {
                 toast.success(translate('passReset'))

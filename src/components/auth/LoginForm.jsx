@@ -5,11 +5,11 @@ import { IoMdEyeOff } from "react-icons/io";
 import { FaGoogle } from "react-icons/fa";
 import { MdOutlinePhoneAndroid } from "react-icons/md";
 import FirebaseData from '@/utils/Firebase';
+import { getFirebaseAuth } from '@/utils/firebaseClient';
 import {
     signInWithPopup,
     GoogleAuthProvider,
     signInWithEmailAndPassword,
-    getAuth,
     sendEmailVerification
 } from 'firebase/auth'
 import { registertokenApi, userSignUpApi } from '@/utils/api/api';
@@ -155,10 +155,14 @@ const LoginForm = ({ setRegisterModal, setPhoneLogin, setLoginModal, setForgotPa
 
 
     const { authentication, messaging } = FirebaseData()
-    const auth = getAuth()
+    const auth = getFirebaseAuth()
 
     // sign in google
     const signInWithGoogle = async () => {
+        if (!authentication) {
+            toast.error(translate('internetmsg'))
+            return
+        }
         const provider = new GoogleAuthProvider()
         await signInWithPopup(authentication, provider)
             .then(async response => {
@@ -172,6 +176,10 @@ const LoginForm = ({ setRegisterModal, setPhoneLogin, setLoginModal, setForgotPa
 
     // sign in with email and password
     const signInWithEmail = async () => {
+        if (!auth) {
+            toast.error(translate('internetmsg'))
+            return
+        }
         if (formValues.email && formValues.password) {
             await signInWithEmailAndPassword(auth, formValues.email, formValues.password)
                 .then(async userCredential => {
