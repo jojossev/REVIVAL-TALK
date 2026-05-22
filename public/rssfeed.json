@@ -1,0 +1,59 @@
+{
+    "version": "https://jsonfeed.org/version/1",
+    "title": "No. 1 News Web Solution on CodeCanyon: Stay Informed and Engaged!",
+    "home_page_url": "https://newstailwind.vercel.app",
+    "feed_url": "https://newstailwind.vercel.app/rssfeed.json",
+    "description": "Discover the top news web solution on Codeacnyon! Get the latest and most relevant news with our user-friendly and efficient platform. Stay informed with ease",
+    "items": [
+        {
+            "url": "https://newstailwind.vercel.app/get_rss_feed_by_id/43",
+            "title": "Top Stories",
+            "date_modified": "2026-03-26T10:40:07.914Z"
+        },
+        {
+            "url": "https://newstailwind.vercel.app/get_rss_feed_by_id/42",
+            "title": "Tech",
+            "date_modified": "2026-03-26T10:40:07.914Z"
+        },
+        {
+            "url": "https://newstailwind.vercel.app/get_rss_feed_by_id/41",
+            "title": "NDTV Videos",
+            "date_modified": "2026-03-26T10:40:07.914Z"
+        },
+        {
+            "url": "https://newstailwind.vercel.app/get_rss_feed_by_id/40",
+            "title": "NDTV Latest",
+            "date_modified": "2026-03-26T10:40:07.914Z"
+        },
+        {
+            "url": "https://newstailwind.vercel.app/get_rss_feed_by_id/39",
+            "title": "India Today World",
+            "date_modified": "2026-03-26T10:40:07.914Z"
+        },
+        {
+            "url": "https://newstailwind.vercel.app/get_rss_feed_by_id/38",
+            "title": "India Today",
+            "date_modified": "2026-03-26T10:40:07.914Z"
+        },
+        {
+            "url": "https://newstailwind.vercel.app/get_rss_feed_by_id/37",
+            "title": "Religion 12",
+            "date_modified": "2026-03-26T10:40:07.914Z"
+        },
+        {
+            "url": "https://newstailwind.vercel.app/get_rss_feed_by_id/36",
+            "title": "VIP",
+            "date_modified": "2026-03-26T10:40:07.914Z"
+        },
+        {
+            "url": "https://newstailwind.vercel.app/get_rss_feed_by_id/34",
+            "title": "Test RSSSSSSSSSSSSSSSSSSSSSSSSSS",
+            "date_modified": "2026-03-26T10:40:07.914Z"
+        },
+        {
+            "url": "https://newstailwind.vercel.app/get_rss_feed_by_id/32",
+            "title": "timeOFindia",
+            "date_modified": "2026-03-26T10:40:07.914Z"
+        }
+    ]
+}

@@ -1,0 +1,1593 @@
+<?php $__env->startSection('title'); ?>
+    <?php echo e(__('news')); ?>
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('content'); ?>
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0"><?php echo e(__('create_and_manage') . ' ' . __('news')); ?></h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item text-dark">
+                            <a href="<?php echo e(route('home')); ?>" class="text-dark"><i
+                                    class="fas fa-home mr-1"></i><?php echo e(__('dashboard')); ?></a>
+                        </li>
+                        <li class="breadcrumb-item active"><i class="nav-icon fas fa-newspaper mr-1"></i><?php echo e(__('news')); ?>
+
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('news-create')): ?>
+                <div class="col-md-12 d-flex justify-content-end">
+                    <button id="toggleButton" class="btn btn-primary mb-3 ml-1"><i
+                            class="fas fa-plus-circle mr-2"></i><?php echo e(__('create') . ' ' . __('news')); ?></button>
+                    </div>
+                <?php endif; ?>
+                <div class="col-md-12" id="add_card">
+                    <div class="card card-secondary">
+                        <div class="card-header">
+                            <h3 class="card-title"><?php echo e(__('create') . ' ' . __('news')); ?></h3>
+                        </div>
+                        <div class="card-body">
+                            <form id="create_form" action="<?php echo e(url('news')); ?>" role="form" method="POST"
+                                enctype="multipart/form-data">
+                                <?php echo csrf_field(); ?>
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-12">
+                                        <div class="form-group">
+                                            <label class="required"><?php echo e(__('language')); ?></label>
+                                            <select id="language_id" name="language" class="form-control" required>
+                                                <?php if(count($languageList) > 1): ?>
+                                                    <option value=""><?php echo e(__('select') . ' ' . __('language')); ?>
+
+                                                    </option>
+                                                <?php endif; ?>
+                                                <?php $__currentLoopData = $languageList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                    <option value="<?php echo e($row->id); ?>" data-name="<?php echo e($row->language); ?>"><?php echo e($row->language); ?>
+
+                                                    </option>
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                            </select>
+                                        </div>
+                                        <?php if(is_category_enabled() == 1): ?>
+                                            <div class="form-group">
+                                                <label class="required"><?php echo e(__('category')); ?></label>
+                                                <select id="category_id" name="category_id" class="form-control" required>
+                                                    <option value=""><?php echo e(__('select') . ' ' . __('category')); ?></option>
+                                                    <?php $__currentLoopData = $categoryList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                        <option value="<?php echo e($row->id); ?>"><?php echo e($row->category_name); ?>
+
+                                                        </option>
+                                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                </select>
+                                            </div>
+                                            <?php if(is_subcategory_enabled() == 1): ?>
+                                                <div class="form-group">
+                                                    <label><?php echo e(__('subcategory')); ?></label>
+                                                    <select id="subcategory_id" name="subcategory_id" class="form-control">
+                                                        <option value=""><?php echo e(__('select') . ' ' . __('subcategory')); ?>
+
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            <?php endif; ?>
+                                        <?php endif; ?>
+                                        <div class="form-group">
+                                            <?php if (isset($component)) { $__componentOriginal1d7cb8c788a4883e2bea29fb16b78e97 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal1d7cb8c788a4883e2bea29fb16b78e97 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.schema-markup-field','data' => []] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component->withName('schema-markup-field'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
+<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal1d7cb8c788a4883e2bea29fb16b78e97)): ?>
+<?php $attributes = $__attributesOriginal1d7cb8c788a4883e2bea29fb16b78e97; ?>
+<?php unset($__attributesOriginal1d7cb8c788a4883e2bea29fb16b78e97); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal1d7cb8c788a4883e2bea29fb16b78e97)): ?>
+<?php $component = $__componentOriginal1d7cb8c788a4883e2bea29fb16b78e97; ?>
+<?php unset($__componentOriginal1d7cb8c788a4883e2bea29fb16b78e97); ?>
+<?php endif; ?>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <div class="d-flex gap-4 align-items-center">
+                                                <div class="form-check form-switch d-flex align-items-center p-0">
+                                                    <label class="mr-2"><?php echo e(__('notify_users')); ?></label>
+                                                    <input type="hidden" name="notification" value="0">
+                                                    <input class="form-check-input me-2 status-switch" type="checkbox" id="is_notification" name="is_notification">
+                                                </div>
+                                                <?php if(getSettingMode('comments_mode') == 1): ?>
+                                                    <div class="form-check form-switch d-flex align-items-center">
+                                                        <label class="mr-2"><?php echo e(__('comments')); ?></label>
+                                                        <input type="hidden" name="is_comment" value="1">
+                                                        <input class="form-check-input me-2 status-switch" type="checkbox" id="comments_switch" name="comments_switch" checked>
+                                                    </div>
+                                                <?php endif; ?>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="required"><?php echo e(__('image')); ?></label>
+                                            <input name="file" type="file" accept="image/*" class="filepond">
+                                        </div>
+                                        <div class="form-group">
+                                            <label><?php echo e(__('gallery_image')); ?></label>
+                                            <input name="ofile[]" type="file" accept="image/*" multiple
+                                                class="filepond logo">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-sm-12">
+                                        <div class="form-group">
+                                            <label class="required"><?php echo e(__('title')); ?></label>
+                                            <input id="title" name="title" required type="text"
+                                                placeholder="<?php echo e(__('title')); ?>" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="required"><?php echo e(__('slug')); ?></label><span class="">(<?php echo e(__('english_only')); ?>)</span>
+                                            <input id="slug" name="slug" required type="text"
+                                                placeholder="<?php echo e(__('slug')); ?>" class="form-control">
+                                            <span class="text-danger"><?php echo e(__('avoid_special_characters')); ?></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="required"><?php echo e(__('content_type')); ?></label>
+                                            <select id="content_type" name="content_type" class="form-control" required>
+                                                <option value="standard_post"><?php echo e(__('standard_post')); ?></option>
+                                                <option value="video_youtube"><?php echo e(__('video_youtube')); ?></option>
+                                                <option value="video_other"><?php echo e(__('video_other_url')); ?></option>
+                                                <option value="video_upload"><?php echo e(__('video_upload')); ?></option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group video_youtube">
+                                            <label><?php echo e(__('youtube_url')); ?></label>
+                                            <input type="url" name="youtube_url" class="form-control youtube_url">
+                                            <span class="error invalid-feedback youtube_url_error"></span>
+                                        </div>
+                                        <div class="form-group video_other">
+                                            <label><?php echo e(__('other_url')); ?></label>
+                                            <input type="url" name="other_url" class="form-control other_url">
+                                            <span class="error invalid-feedback other_url_error"></span>
+                                        </div>
+                                        <div class="form-group video_upload">
+                                            <label><?php echo e(__('video_uploads')); ?></label>
+                                            <input name="video_file" type="file" class="filepond-video">
+                                        </div>
+                                        <div class="form-group">
+                                            <label><?php echo e(__('meta_keywords')); ?></label>
+                                            <input id="meta_tags" style="border-radius: 0.25rem" class="w-100"
+                                                type="text" name="meta_keyword"
+                                                placeholder="<?php echo e(__('press_enter_add_keywords')); ?>">
+                                        </div>
+                                        <div class="form-group">
+                                            <label><?php echo e(__('meta_title')); ?></label>
+                                            <input type="text" name="meta_title" class="form-control" id="meta_title"
+                                                oninput="getWordCount('meta_title','meta_title_count','19.9px arial')"
+                                                placeholder="<?php echo e(__('meta_title')); ?>">
+                                            <h6 id="meta_title_count">0</h6>
+                                        </div>
+                                        <div class="form-group">
+                                            <label><?php echo e(__('meta_description')); ?></label>
+                                            <textarea id="meta_description" name="meta_description" class="form-control"
+                                                oninput="getWordCount('meta_description','meta_description_count','12.9px arial')"></textarea>
+                                            <h6 id="meta_description_count">0</h6>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="col-md-4 col-sm-12">
+                                        <?php if(is_location_news_enabled() == 1): ?>
+                                            <div class="form-group">
+                                                <label><?php echo e(__('location')); ?></label>
+                                                <select name="location_id" class="form-control" required>
+                                                    <option value=""><?php echo e(__('select') . ' ' . __('location')); ?>
+
+                                                    </option>
+                                                    <?php $__currentLoopData = $locationList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                        <option value="<?php echo e($row->id); ?>"><?php echo e($row->location_name); ?>
+
+                                                        </option>
+                                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                </select>
+                                            </div>
+                                        <?php endif; ?>
+                                        <div class="form-group">
+                                            <label><?php echo e(__('published_date')); ?></label>
+                                            <input id="published_date" name="published_date" value=""
+                                                min="<?php echo e(date('Y-m-d')); ?>" type="date" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <?php
+                                            $datetime = new DateTime('tomorrow');
+                                            $tomorrow = $datetime->format('Y-m-d');
+                                            ?>
+                                            <label><?php echo e(__('show_till_expiry_date')); ?></label>
+                                            <input id="show_till" name="show_till" type="date"
+                                                min="<?php echo e($tomorrow); ?>" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="TagifyCustomListSuggestion"><?php echo e(__('tag')); ?></label>
+
+                                            <input id="TagifyCustomListSuggestion" name="tag_id" class="form-control h-auto" placeholder="<?php echo e(__('select_or_type_tag')); ?>" value="">
+
+                                            
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label><?php echo e(__('description')); ?></label>
+                                            <textarea id="des" name="des" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12 col-sm-12">
+                                        <div class="form-group ">
+                                            <label><?php echo e(__('summarized_description')); ?></label>
+                                            
+                                            <textarea name="summarized_description" id="summarized_description" cols="30" rows="2" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3">
+                                        <div class="form-group ">
+                                            <div class="form-check pl-0 form-switch d-flex align-items-center">
+                                                <label class="mr-2"><?php echo e(__('want_to_save_as_draft')); ?>?</label>
+                                                <input type="hidden" name="is_draft" value="0">
+                                                <input class="form-check-input status-switch" type="checkbox" id="draft_switch" name="draft_switch">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3">
+                                        <div class="form-group ">
+                                            <div class="form-check pl-0 form-switch d-flex align-items-center">
+                                                <label class="mr-2"><?php echo e(__('is_short_news')); ?>?</label>
+                                                <input type="hidden" name="is_short_news" value="0">
+                                                <input class="form-check-input status-switch" type="checkbox" id="is_short_news_switch" name="is_short_news_switch">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                
+                                <div class="d-flex justify-content-end">
+                                    <button type="button" class="btn btn-outline-primary" id="generate_meta_fields">
+                                        <i class="fas fa-magic"></i> <?php echo e(__('generate')); ?>
+
+                                    </button>
+                                    <button type="submit" class="btn btn-primary ml-2"><?php echo e(__('submit')); ?></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('news-list')): ?>
+                <div class="col-md-12">
+                    <div class="card card-secondary">
+                        <div class="card-header">
+                            <h3 class="card-title"><?php echo e(__('news') . ' ' . __('list')); ?></h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-lg-2 col-md-3 col-sm-12">
+                                    <label><?php echo e(__('language')); ?></label>
+                                    <select id="filter_language_id" class="form-control">
+                                        <option value="0"><?php echo e(__('select') . ' ' . __('language')); ?></option>
+                                        <?php $__currentLoopData = $languageList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <option value="<?php echo e($row->id); ?>"><?php echo e($row->language); ?></option>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    </select>
+                                </div>
+                                <?php if(is_category_enabled() == 1): ?>
+                                    <div class="col-lg-2 col-md-3 col-sm-12">
+                                        <label><?php echo e(__('category')); ?></label>
+                                        <select id="filter_category_id" class="form-control">
+                                            <option value="0"><?php echo e(__('select') . ' ' . __('category')); ?></option>
+                                        </select>
+                                    </div>
+                                    <?php if(is_subcategory_enabled() == 1): ?>
+                                        <div class="col-lg-2 col-md-3 col-sm-12">
+                                            <label><?php echo e(__('subcategory')); ?></label>
+                                            <select id="filter_subcategory_id" class="form-control">
+                                                <option value="0"><?php echo e(__('select') . ' ' . __('subcategory')); ?>
+
+                                                </option>
+                                            </select>
+                                        </div>
+                                    <?php endif; ?>
+                                <?php endif; ?>
+                                <?php if(is_location_news_enabled() == 1): ?>
+                                    <div class="col-lg-2 col-md-3 col-sm-12">
+                                        <label><?php echo e(__('location')); ?></label>
+                                        <select id="filter_location_id" name="location" class="form-control" required>
+                                            <option value="0"><?php echo e(__('select') . ' ' . __('location')); ?></option>
+                                            <?php $__currentLoopData = $locationList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                <option value="<?php echo e($row->id); ?>"><?php echo e($row->location_name); ?></option>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        </select>
+                                    </div>
+                                <?php endif; ?>
+                                <div class="col-lg-2 col-md-3 col-sm-12">
+                                    <label><?php echo e(__('status')); ?></label>
+                                    <select id="filter_status" name="status" class="form-control">
+                                        <option value=""><?php echo e(__('status')); ?></option>
+                                        <option value="1"><?php echo e(__('active')); ?></option>
+                                        <option value="0"><?php echo e(__('deactive')); ?></option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-2 col-md-3 col-sm-12">
+                                    <label><?php echo e(__('author')); ?></label>
+                                    <select id="filter_user_id" class="form-control">
+                                        <option value="0"><?php echo e(__('select') . ' ' . __('author')); ?></option>
+                                        <?php $__currentLoopData = $userList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <option value="<?php echo e($row->id); ?>"><?php echo e($row->name); ?></option>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('news-bulk-delete')): ?>
+                            <div id="toolbar">
+                                <button class="btn bg-primary text-white" type="submit"
+                                    id="bulk_delete"><?php echo e(__('bulk_delete')); ?></button>
+                            </div>
+                            <?php endif; ?>
+                            <table aria-describedby="mydesc" id='table' data-toggle="table"
+                                data-url="<?php echo e(route('newsList')); ?>" data-click-to-select="true"
+                                data-side-pagination="server" data-pagination="true"
+                                data-page-list="[5, 10, 20, 50, 100, 200]" data-search="true" data-unique-id="id"
+                                data-show-columns="true" data-show-refresh="true" data-toolbar="#toolbar"
+                                data-mobile-responsive="true" data-buttons-class="primary" data-trim-on-search="false"
+                                data-sort-name="id" data-sort-order="desc" data-query-params="newsQueryParams">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center multi-check" data-checkbox="true">
+                                        <th scope="col" data-field="id" data-sortable="true"><?php echo e(__('id')); ?></th>
+                                        <th scope="col" data-field="language_id" data-sortable="true"
+                                            data-visible="false"><?php echo e(__('language_id')); ?></th>
+                                        <th scope="col" data-field="language_name"><?php echo e(__('language')); ?> </th>
+                                        <?php if(is_category_enabled() == 1): ?>
+                                            <th scope="col" data-field="category_id" data-sortable="true"
+                                                data-visible="false"><?php echo e(__('category_id')); ?></th>
+                                            <th scope="col" data-field="category_name"><?php echo e(__('category')); ?></th>
+                                        <?php endif; ?>
+                                        <?php if(is_subcategory_enabled() == 1): ?>
+                                            <th scope="col" data-field="subcategory_id" data-visible="false">
+                                                <?php echo e(__('subcategory_id')); ?></th>
+                                            <th scope="col" data-field="subcategory_name" data-visible="false">
+                                                <?php echo e(__('subcategory')); ?></th>
+                                        <?php endif; ?>
+                                        <th scope="col" data-field="image"><?php echo e(__('image')); ?></th>
+                                        <th scope="col" data-field="title" data-sortable="true" data-formatter="textFormatter"><?php echo e(__('title')); ?>
+
+                                        </th>
+                                        <th scope="col" data-field="slug" data-visible="false"><?php echo e(__('slug')); ?>
+
+                                        </th>
+                                        <th scope="col" data-field="content_type"><?php echo e(__('content_type')); ?></th>
+                                        <th scope="col" data-field="status_badge"><?php echo e(__('status')); ?></th>
+                                        <th scope="col" data-field="is_draft" data-formatter="isDraftNewsFormatter"><?php echo e(__('is_draft')); ?></th>
+                                        <th scope="col" data-field="is_short_news" data-formatter="isShortNewsFormatter"><?php echo e(__('is_short_news')); ?></th>
+                                        <th scope="col" data-field="published_date" data-formatter="dateFormate" data-visible="false">
+                                            <?php echo e(__('published_date')); ?></th>
+                                        <th scope="col" data-field="show_till" data-formatter="dateFormate"
+                                            data-visible="false"><?php echo e(__('show_till')); ?></th>
+                                        <th scope="col" data-field="tag_id" data-visible="false"><?php echo e(__('tag_id')); ?>
+
+                                        </th>
+                                        <th scope="col" data-field="tag_name" data-visible="false">
+                                            <?php echo e(__('tags')); ?></th>
+                                        <th scope="col" data-field="created_at" data-visible="false">
+                                            <?php echo e(__('created_at')); ?></th>
+                                        
+                                        <th scope="col" data-field="short_description" data-visible="false">
+                                            <?php echo e(__('description')); ?></th>
+                                        <th scope="col" data-field="meta_title" data-visible="false">
+                                            <?php echo e(__('meta_title')); ?></th>
+                                        <th scope="col" data-field="meta_keyword" data-visible="false">
+                                            <?php echo e(__('meta_keywords')); ?></th>
+                                        <th scope="col" data-field="meta_description" data-visible="false">
+                                            <?php echo e(__('meta_description')); ?></th>
+                                        <th scope="col" data-field="is_clone1" data-visible="false">
+                                            <?php echo e(__('is_clone')); ?></th>
+                                        <?php if(is_location_news_enabled() == 1): ?>
+                                            <th scope="col" data-field="location" data-visible="false">
+                                                <?php echo e(__('location')); ?></th>
+                                            <th scope="col" data-field="location_id" data-sortable="true"
+                                                data-visible="false"><?php echo e(__('location_id')); ?></th>
+                                        <?php endif; ?>
+                                        <th scope="col" data-field="is_expire"><?php echo e(__('is_expired')); ?></th>
+                                        <th scope="col" data-field="total_image"><?php echo e(__('gallery_image')); ?></th>
+                                        <th scope="col" data-field="views"><?php echo e(__('views')); ?></th>
+                                        <th scope="col" data-field="likes"><?php echo e(__('likes')); ?></th>
+                                        <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->any(['news-edit', 'news-delete','news-edit-description','news-clone'])): ?>
+                                        <th scope="col" data-field="operate" data-events="actionEvents">
+                                            <?php echo e(__('operate')); ?></th>
+                                        <?php endif; ?>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <?php endif; ?>
+            </div>
+        </div>
+        <div class="modal fade" id="editDataModal">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title"><?php echo e(__('edit') . ' ' . __('news')); ?></h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form id="update_form" action="<?php echo e(url('news')); ?>" role="form" method="POST"
+                        enctype="multipart/form-data">
+                        <?php echo csrf_field(); ?>
+                        <input type='hidden' name="edit_id" id="edit_id" value='' />
+                        <input type='hidden' name="image_url" id="image_url" value='' />
+                        <input type='hidden' name="video_url" id="video_url" value='' />
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-4 col-sm-12">
+                                    <div class="form-group">
+                                        <label class="required"><?php echo e(__('language')); ?></label>
+                                        <select id="edit_language_id" name="language" class="form-control" required>
+                                            <option value=""><?php echo e(__('select') . ' ' . __('language')); ?></option>
+                                            <?php $__currentLoopData = $languageList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                <option value="<?php echo e($row->id); ?>"><?php echo e($row->language); ?></option>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        </select>
+                                    </div>
+                                    <?php if(is_category_enabled() == 1): ?>
+                                        <div class="form-group">
+                                            <label class="required"><?php echo e(__('category')); ?></label>
+                                            <select id="edit_category_id" name="category_id" class="form-control"
+                                                required>
+                                                <option value=""><?php echo e(__('select') . ' ' . __('category')); ?></option>
+                                            </select>
+                                        </div>
+                                        <?php if(is_subcategory_enabled() == 1): ?>
+                                            <div class="form-group">
+                                                <label><?php echo e(__('subcategory')); ?></label>
+                                                <select id="edit_subcategory_id" name="subcategory_id"
+                                                    class="form-control">
+                                                    <option value=""><?php echo e(__('select') . ' ' . __('subcategory')); ?>
+
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
+                                    <div class="form-group">
+                                        <label><?php echo e(__('published_date')); ?></label>
+                                        <input id="edit_published_date" name="published_date" type="date"
+                                            class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <?php if (isset($component)) { $__componentOriginal1d7cb8c788a4883e2bea29fb16b78e97 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal1d7cb8c788a4883e2bea29fb16b78e97 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.schema-markup-field','data' => ['id' => 'edit_schema_markup']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component->withName('schema-markup-field'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
+<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['id' => 'edit_schema_markup']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal1d7cb8c788a4883e2bea29fb16b78e97)): ?>
+<?php $attributes = $__attributesOriginal1d7cb8c788a4883e2bea29fb16b78e97; ?>
+<?php unset($__attributesOriginal1d7cb8c788a4883e2bea29fb16b78e97); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal1d7cb8c788a4883e2bea29fb16b78e97)): ?>
+<?php $component = $__componentOriginal1d7cb8c788a4883e2bea29fb16b78e97; ?>
+<?php unset($__componentOriginal1d7cb8c788a4883e2bea29fb16b78e97); ?>
+<?php endif; ?>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <div class="d-flex gap-4 align-items-center">
+                                            <div class="form-check form-switch d-flex align-items-center p-0">
+                                                <label class="mr-2"><?php echo e(__('notify_users')); ?></label>
+                                                <input type="checkbox" id="edit_is_notification" name="edit_is_notification"
+                                                    class="edit-status-switch">
+                                                <input type="hidden" id="edit_notification" name="notification" value="0">
+                                            </div>
+                                            <?php if(getSettingMode('comments_mode') == 1): ?>
+                                                <div class="form-check form-switch d-flex align-items-center">
+                                                    <label class="mr-2"><?php echo e(__('comments')); ?></label>
+                                                    <input type="checkbox" id="edit_comments_switch" name="edit_comments_switch"
+                                                        class="edit-status-switch">
+                                                    <input type="hidden" id="edit_is_comment" name="is_comment" value="0">
+                                                </div>
+                                            <?php endif; ?>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label><?php echo e(__('status')); ?></label><br>
+                                        <div id="status1" class="btn-group">
+                                            <label class="btn btn-success" data-toggle-class="btn-primary"
+                                                data-toggle-passive-class="btn-default">
+                                                <input type="radio" name="status" value="1"
+                                                    checked><?php echo e(__('active')); ?>
+
+                                            </label>
+                                            <label class="btn btn-danger" data-toggle-class="btn-primary"
+                                                data-toggle-passive-class="btn-default">
+                                                <input type="radio" name="status"
+                                                    value="0"><?php echo e(__('deactive')); ?>
+
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-12">
+                                    <div class="form-group">
+                                        <label class="required"><?php echo e(__('title')); ?></label>
+                                        <input type="text" name="title" id="edit_title" class="form-control"
+                                            placeholder="news title" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="required"><?php echo e(__('slug')); ?></label><span class="">(<?php echo e(__('english_only')); ?>)</span>
+                                        <input type="text" name="slug" id="edit_slug" class="form-control"
+                                            placeholder="<?php echo e(__('slug')); ?>" required>
+                                        <span class="text-danger"><?php echo e(__('avoid_special_characters')); ?></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <?php
+                                        $datetime = new DateTime('tomorrow');
+                                        $tomorrow = $datetime->format('Y-m-d');
+                                        ?>
+                                        <label><?php echo e(__('show_till_expiry_date')); ?></label>
+                                        <div class="custom-file">
+                                            <input id="edit_show_till" type="date" name="show_till"
+                                                class="form-control" placeholder="" min="<?php echo e($tomorrow); ?>">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="required"><?php echo e(__('content_type')); ?></label>
+                                        <select name="content_type" id="edit_content_type" class="form-control" required>
+                                            <option value="standard_post" selected><?php echo e(__('standard_post')); ?></option>
+                                            <option value="video_youtube"><?php echo e(__('video_youtube')); ?></option>
+                                            <option value="video_other"><?php echo e(__('video_other_url')); ?></option>
+                                            <option value="video_upload"><?php echo e(__('video_upload')); ?></option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group evideo_youtube">
+                                        <label><?php echo e(__('youtube_url')); ?></label>
+                                        <input type="url" name="youtube_url" id="youtube_url"
+                                            class="form-control youtube_url">
+                                        <span class="error invalid-feedback youtube_url_error"></span>
+                                    </div>
+                                    <div class="form-group evideo_other">
+                                        <label><?php echo e(__('other_url')); ?></label>
+                                        <input type="url" name="other_url" id="other_url"
+                                            class="form-control other_url">
+                                        <span class="error invalid-feedback other_url_error"></span>
+                                    </div>
+                                    <div class="form-group evideo_upload">
+                                        <label><?php echo e(__('video_uploads')); ?></label>
+                                        <input name="video_file" type="file" class="filepond-video"
+                                            id="exampleVideoInputFile1_edit">
+                                    </div>
+                                    <div class="form-group">
+                                        <label><?php echo e(__('image')); ?> </label>
+                                        <input name="file" type="file" accept="image/*" class="filepond">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-sm-12">
+                                    <?php if(is_location_news_enabled() == 1): ?>
+                                        <div class="form-group">
+                                            <label class="required"><?php echo e(__('location')); ?></label>
+                                            <select name="location_id" id="edit_location_id" class="form-control"
+                                                required>
+                                                <option value=""><?php echo e(__('select') . ' ' . __('location')); ?></option>
+                                                <?php $__currentLoopData = $locationList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                    <option value="<?php echo e($row->id); ?>"><?php echo e($row->location_name); ?>
+
+                                                    </option>
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                            </select>
+                                        </div>
+                                    <?php endif; ?>
+                                    <div class="form-group">
+                                        
+                                        
+                                        <label for="edit_news_tagify"><?php echo e(__('tag')); ?></label>
+
+                                        <input id="edit_news_tagify" name="tag_id" class="form-control h-auto" placeholder="<?php echo e(__('select_or_type_tag')); ?>" value="">
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label><?php echo e(__('meta_keywords')); ?></label>
+                                        <input id="edit_meta_tags" style="border-radius: 0.25rem" class="w-100"
+                                            type="text" name="meta_keyword"
+                                            placeholder="<?php echo e(__('press_enter_add_keywords')); ?>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label><?php echo e(__('meta_title')); ?></label>
+                                        <input type="text" name="meta_title" class="form-control"
+                                            id="edit_meta_title"
+                                            oninput="getWordCount('edit_meta_title','edit_meta_title_count','19.9px arial')"
+                                            placeholder="<?php echo e(__('meta_title')); ?>">
+                                        <h6 id="edit_meta_title_count">0</h6>
+                                    </div>
+                                    <div class="form-group">
+                                        <label><?php echo e(__('meta_description')); ?></label>
+                                        <textarea id="edit_meta_description" name="meta_description" class="form-control"
+                                            oninput="getWordCount('edit_meta_description','edit_meta_description_count','12.9px arial')"></textarea>
+                                        <h6 id="edit_meta_description_count">0</h6>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="form-check pl-0 form-switch d-flex align-items-center">
+                                            <label class="mr-2"><?php echo e(__('want_to_save_as_draft')); ?>?</label>
+                                            <input type="hidden" id="edit_is_draft" name="edit_is_draft" value="0">
+                                            <input class="form-check-input status-switch" type="checkbox" id="edit_draft_switch" name="edit_draft_switch">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-check pl-0 form-switch d-flex align-items-center">
+                                            <label class="mr-2"><?php echo e(__('is_short_news')); ?></label>
+                                            <input type="hidden" id="edit_is_short_news" name="edit_is_short_news" value="0">
+                                            <input class="form-check-input status-switch" type="checkbox" id="edit_is_short_news_switch" name="edit_is_short_news_switch">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default"
+                                data-dismiss="modal"><?php echo e(__('close')); ?></button>
+                            <button type="submit" class="btn btn-primary"><?php echo e(__('submit')); ?></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="editDataDesModal">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title"><?php echo e(__('edit') . ' ' . __('description')); ?></h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="<?php echo e(route('news_update_description')); ?>" method="POST" role="form"
+                        enctype="multipart/form-data">
+                        <?php echo csrf_field(); ?>
+                        <?php echo method_field('PUT'); ?>
+                        <div class="modal-body">
+                            <input type='hidden' name="edit_id" value='' />
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <label><?php echo e(__('description')); ?></label>
+                                    <textarea id="edit_des" name="des" class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <label><?php echo e(__('summarized_description')); ?></label>
+                                    
+                                    <textarea name="summarized_description" id="edit_summarized_description" cols="30" rows="2" class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default"
+                                data-dismiss="modal"><?php echo e(__('close')); ?></button>
+                            <button type="submit" class="btn btn-primary"><?php echo e(__('submit')); ?></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('script'); ?>
+    <script type="text/javascript">
+        window.actionEvents = {
+            'click .edit-data': function(e, value, row, index) {
+                $('#edit_id').val(row.id);
+                $("#image_url").val(row.image_url);
+                $('#edit_slug').val(row.slug);
+                $("#edit_title").val(row.title);
+                $('#edit_published_date').val(row.published_date);
+                $("#edit_date").val(row.date1);
+                $("#edit_location_id").val(row.location_id);
+                $("#edit_show_till").val(row.show_till).prop('min', row.published_date);
+                $('#edit_meta_tags').val(row.meta_keyword);
+                $('#edit_schema_markup').val(row.schema_markup);
+                $("#edit_content_type").val(row.content_type1).trigger('change');
+
+                var con_value = row.content_value;
+                $('.evideo_youtube').hide();
+                $('.evideo_other').hide();
+                $('.evideo_upload').hide();
+                if (row.content_type1 == "video_youtube") {
+                    $('.evideo_youtube').show();
+                    $('#youtube_url').val(con_value);
+                } else if (row.content_type1 == "video_other") {
+                    $('.evideo_other').show();
+                    $('#other_url').val(con_value);
+                } else if (row.content_type1 == "video_upload") {
+                    $('.evideo_upload').show();
+                    $("#video_url").val('public/images/news_video/' + con_value);
+                }
+                // $('#edit_is_notification').prop('checked', false);
+                if (row.status == '0') {
+                    $("input[name=status][value=0]").prop('checked', true);
+                } else {
+                    $("input[name=status][value=1]").prop('checked', true);
+                }
+                $("#edit_is_notification").prop("checked", true).trigger("click");
+
+
+                if (row.is_draft == '1' || row.is_draft == 1) {
+                    $('#edit_draft_switch').prop('checked', true);
+                    $('#edit_is_draft').val('1');
+                    var event = new Event('change');
+                    $('#edit_draft_switch')[0].dispatchEvent(event);
+                } else {
+                    $('#edit_draft_switch').prop('checked', false);
+                    $('#edit_is_draft').val('0');
+                }
+                if (row.is_short_news == '1' || row.is_short_news == 1) {
+                    $('#edit_is_short_news_switch').prop('checked', true);
+                    $('#edit_is_short_news').val('1');
+                    var event = new Event('change');
+                    $('#edit_is_short_news_switch')[0].dispatchEvent(event);
+                } else {
+                    $('#edit_is_short_news_switch').prop('checked', false);
+                    $('#edit_is_short_news').val('0');
+                }
+
+                // is short news
+                // var editSwitch = document.querySelector('#edit_is_short_news_switch');
+                // var shouldBeChecked = (row.is_short_news == 1);
+                // if (editSwitch.checked !== shouldBeChecked) {
+                //     editSwitch.click();
+                // }
+                // $('#edit_is_short_news').val(shouldBeChecked ? 1 : 0);
+
+
+
+                // Set is_comment switch state
+                if (row.is_comment == '1') {
+                    $("#edit_comments_switch").prop("checked", true);
+                    $("#edit_is_comment").val(1);
+                    // Force update the switch UI
+                    var event = new Event('change');
+                    $("#edit_comments_switch")[0].dispatchEvent(event);
+                } else {
+                    $("#edit_comments_switch").prop("checked", false);
+                    $("#edit_is_comment").val(0);
+                    // Force update the switch UI
+                    var event = new Event('change');
+                    $("#edit_comments_switch")[0].dispatchEvent(event);
+                }
+
+                switcheryInstances1.forEach(function(switchery) {
+                    if (switchery.element.id === 'edit_is_notification') {
+
+                    if (row.status == '0' || row.published_date > today) {
+                        switchery.disable();
+                    } else {
+                        switchery.enable();
+                    }
+                }
+                });
+
+                $('#edit_meta_description').val(row.meta_description);
+                $('#edit_meta_title').val(row.meta_title);
+                getWordCount('edit_meta_description', 'edit_meta_description_count', '12.9px arial');
+                getWordCount('edit_meta_title', 'edit_meta_title_count', '19.9px arial');
+
+                $("#edit_language_id").val(row.language_id).trigger('change', [row.language_id, row.category_id, row
+                    .subcategory_id, row.tag_id
+                ]);
+            },
+            'click .edit-data-des': function(e, value, row, index) {
+                $('input[name=edit_id]').val(row.id);
+                var des1 = tinyMCE.get('edit_des').setContent(row.description);
+                $('#edit_des').val(des1);
+                $('#edit_summarized_description').val(row.summarized_description);
+                // if (row.is_draft == '1' || row.is_draft == 1) {
+                //     $('#edit_draft_switch').prop('checked', true);
+                //     $('#edit_is_draft').val('1');
+                //     var event = new Event('change');
+                //     $('#edit_draft_switch')[0].dispatchEvent(event);
+                // } else {
+                //     $('#edit_draft_switch').prop('checked', false);
+                //     $('#edit_is_draft').val('0');
+                // }
+            }
+        };
+
+    </script>
+
+    <script type="text/javascript">
+        $(document).on('change', '#language_id', function(e) {
+            var data = {
+                language_id: $('#language_id').val(),
+            };
+            var url = '<?php echo e(route('get_category_by_language')); ?>';
+            fetchList(url, data, '#category_id');
+
+
+            // Clear all selected tags when language changes
+            if (typeof window.TagifyCustomListSuggestion !== 'undefined' && window.TagifyCustomListSuggestion) {
+                // Try multiple methods to ensure tags are cleared
+                try {
+                    // Method 1: Try removeAllTags if available
+                    if (typeof window.TagifyCustomListSuggestion.removeAllTags === 'function') {
+                        window.TagifyCustomListSuggestion.removeAllTags();
+                    } else {
+                        // Method 2: Set value to empty and update
+                        window.TagifyCustomListSuggestion.value = [];
+                    }
+                } catch (e) {
+                    // Method 3: Fallback - set value directly and remove DOM elements
+                    try {
+                        window.TagifyCustomListSuggestion.value = [];
+                        if (window.TagifyCustomListSuggestion.removeTagsFromDOM) {
+                            window.TagifyCustomListSuggestion.removeTagsFromDOM();
+                        }
+                        // window.TagifyCustomListSuggestion.update();
+                    } catch (err) {
+                        console.log('Error clearing tags:', err);
+                    }
+                }
+            }
+            // $('#tag_id').val(null).trigger('change');
+            // var url1 = '<?php echo e(route('get_tag_by_language')); ?>';
+            // fetchList(url1, data, '#tag_id');
+            var url1 = '<?php echo e(route('get_tag_by_language')); ?>';
+            $.ajax({
+                url: url1,
+                type: 'POST',
+                data: data,
+                success: function(result) {
+                    // Parse the HTML options and extract tag data
+                    var $temp = $('<div>').html(result);
+                    var tags = [];
+                    $temp.find('option').each(function() {
+                        var $option = $(this);
+                        tags.push({
+                            value: $option.data('text'),
+                            id: $option.val(),
+                            // text: $option.data('text')
+                        });
+                    });
+
+                    // Update Tagify whitelist
+                    if (typeof TagifyCustomListSuggestion !== 'undefined' && TagifyCustomListSuggestion) {
+                        TagifyCustomListSuggestion.settings.whitelist = tags;
+                        // TagifyCustomListSuggestion.dropdown.show.call(TagifyCustomListSuggestion);
+                    }
+                },
+                error: function(errors) {
+                    console.log('Error fetching tags:', errors);
+                    // Clear whitelist on error
+                    if (typeof window.TagifyCustomListSuggestion !== 'undefined' && window.TagifyCustomListSuggestion) {
+                        window.TagifyCustomListSuggestion.settings.whitelist = [];
+                    }
+                }
+            });
+        });
+
+        // edit tag
+
+        $(document).on('change', '#category_id', function(e) {
+            var data = {
+                category_id: $('#category_id').val(),
+            };
+            var url = '<?php echo e(route('get_subcategory_by_category')); ?>';
+            fetchList(url, data, '#subcategory_id');
+        });
+
+        $(document).on('change', '#edit_language_id', function(e, row_language_id, row_category_id, row_subcategory_id,
+            row_tag_id) {
+                // console.log("direct trigger");
+
+            var language_id = $('#edit_language_id').val();
+            $.ajax({
+                url: '<?php echo e(route('get_category_by_language')); ?>',
+                type: "POST",
+                data: {
+                    language_id: language_id,
+                },
+                beforeSend: function() {
+                    $('#edit_category_id').html("Please wait..");
+                },
+                success: function(result) {
+                    $('#edit_category_id').html(result);
+                    if (language_id == row_language_id && row_category_id != 0) {
+                        $('#edit_category_id').val(row_category_id).trigger('change', [row_category_id,
+                            row_subcategory_id
+                        ]);
+                    }
+                },
+                error: function(errors) {
+                    console.log(errors);
+                },
+            });
+
+            // let url1 = '<?php echo e(route('get_tag_by_language')); ?>';
+            // let data1 = {
+            //     language_id: $('#language_id').val(),
+            // };
+            // fetchList(url1, data1, '#edit_news_tagify');
+
+            // Clear all selected tags when language changes
+            if (typeof window.editTagCustomListSuggestion !== 'undefined' && window.editTagCustomListSuggestion) {
+                // Try multiple methods to ensure tags are cleared
+                try {
+                    // Method 1: Try removeAllTags if available
+                    if (typeof window.editTagCustomListSuggestion.removeAllTags === 'function') {
+                        window.editTagCustomListSuggestion.removeAllTags();
+                    } else {
+                        // Method 2: Set value to empty and update
+                        window.editTagCustomListSuggestion.value = [];
+                    }
+                } catch (e) {
+                    // Method 3: Fallback - set value directly and remove DOM elements
+                    try {
+                        window.editTagCustomListSuggestion.value = [];
+                        if (window.editTagCustomListSuggestion.removeTagsFromDOM) {
+                            window.editTagCustomListSuggestion.removeTagsFromDOM();
+                        }
+                        // window.editTagCustomListSuggestion.update();
+                    } catch (err) {
+                        console.log('Error clearing tags:', err);
+                    }
+                }
+            }
+
+            $.ajax({
+                url: '<?php echo e(route('get_tag_by_language')); ?>',
+                type: "POST",
+                data: {
+                    language_id: language_id,
+                },
+                beforeSend: function() {
+                    $('#edit_news_tagify').html("Please wait..");
+                },
+                success: function(result) {
+                    // $('#edit_news_tagify').html(result).trigger("change");
+                    // if (language_id == row_language_id && row_tag_id != '') {
+                    //     var valueArray = row_tag_id;
+                    //     var arrayArea = valueArray.split(',');
+                    //     $("#edit_news_tagify").val(arrayArea).trigger("change");
+                    // }
+                           // Parse the HTML options and extract tag data
+                    let $temp = $('<div>').html(result);
+                    let tags = [];
+                    let selectedTags = [];
+
+                    // Convert row_tag_id to an array for exact matching
+                    let rowTagIds = [];
+                    if (row_tag_id && row_tag_id != '') {
+                        if (Array.isArray(row_tag_id)) {
+                            rowTagIds = row_tag_id.map(id => String(id));
+                        } else {
+                            // Split by comma if it's a comma-separated string
+                            rowTagIds = String(row_tag_id).split(',').map(id => id.trim());
+                        }
+                    }
+
+                    $temp.find('option').each(function() {
+                        let $option = $(this);
+                        let tagObj = {
+                            value: $option.data('text'),
+                            id: $option.val(),
+                            // text: $option.data('text')
+                        };
+                        tags.push(tagObj);
+
+                        // need to add the attribute value tag where row_tag_id matches
+                        // Use exact matching instead of substring matching
+                        if (rowTagIds.length > 0 && rowTagIds.includes(String($option.val()))) {
+                            selectedTags.push(tagObj);
+                        }
+                    });
+
+                    // Update Tagify whitelist
+                    if (typeof editTagCustomListSuggestion !== 'undefined' && editTagCustomListSuggestion) {
+                        // Clear all existing tags first to prevent old tags from persisting
+                        editTagCustomListSuggestion.removeAllTags();
+
+                        editTagCustomListSuggestion.settings.whitelist = tags;
+
+                        // Add selected tags if any match
+                        if (selectedTags.length > 0) {
+                            editTagCustomListSuggestion.addTags(selectedTags);
+                        }
+                    }
+                },
+                error: function(errors) {
+                    console.log(errors);
+                },
+            });
+        });
+
+        $(document).on('change', '#edit_category_id', function(e, row_category_id, row_subcategory_id) {
+            var category_id = $('#edit_category_id').val();
+            $.ajax({
+                url: '<?php echo e(route('get_subcategory_by_category')); ?>',
+                type: "POST",
+                data: {
+                    category_id: category_id,
+                },
+                beforeSend: function() {
+                    $('#edit_subcategory_id').html("Please wait..");
+                },
+                success: function(result) {
+                    $('#edit_subcategory_id').html(result);
+                    if (category_id == row_category_id && row_subcategory_id != 0) {
+                        $('#edit_subcategory_id').val(row_subcategory_id);
+                    }
+                },
+                error: function(errors) {
+                    console.log(errors);
+                },
+            });
+        });
+
+        $('input[name=status]').on('change', function(e) {
+            var status = $('input[name=status]:checked').val();
+            var published_date = $('#edit_published_date').val();
+            switcheryInstances1.forEach(function(switchery) {
+                if (switchery.element.id === 'edit_is_notification') {
+                    if (status == 0 || published_date > today) {
+                        switchery.disable();
+                    } else {
+                        switchery.enable();
+                    }
+                }
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        $('.youtube_url').on('change', function(e) {
+            var url = $(this).val();
+            if (url != undefined || url != '') {
+                var regExp =
+                    /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
+                var match = url.match(regExp);
+                if (match && match[1].length == 11) {
+                    $(this).closest(".video_youtube").find(".youtube_url_error").hide();
+                    $(this).closest(".video_youtube").find(".youtube_url_error").text("");
+                    $(this).closest(".evideo_youtube").find(".youtube_url_error").hide();
+                    $(this).closest(".evideo_youtube").find(".youtube_url_error").text("");
+                } else {
+                    $(this).closest(".video_youtube").find(".youtube_url_error").show();
+                    $(this).closest(".video_youtube").find(".youtube_url_error").text("Please enter youtube url.");
+                    $(this).val("");
+                    $(this).closest(".evideo_youtube").find(".youtube_url_error").show();
+                    $(this).closest(".evideo_youtube").find(".youtube_url_error").text("Please enter youtube url.");
+                }
+            }
+        });
+        $('.other_url').on('change', function(e) {
+            var url = $(this).val();
+            if (url != undefined || url != '') {
+                var regExp =
+                    /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
+                var match = url.match(regExp);
+                if (match && match[1].length == 11) {
+                    $(this).closest(".video_other").find(".other_url_error").show();
+                    $(this).closest(".video_other").find(".other_url_error").text(
+                        "Youtube url is not valid for other url.");
+                    $(this).val("");
+                    $(this).closest(".evideo_other").find(".other_url_error").show();
+                    $(this).closest(".evideo_other").find(".other_url_error").text(
+                        "Youtube url is not valid for other url.");
+                } else {
+                    $(this).closest(".video_other").find(".other_url_error").hide();
+                    $(this).closest(".video_other").find(".other_url_error").text("");
+                    $(this).closest(".evideo_other").find(".other_url_error").hide();
+                    $(this).closest(".evideo_other").find(".other_url_error").text("");
+                }
+            }
+        });
+        var notification = document.querySelector('#is_notification');
+        notification.onchange = function() {
+            if (notification.checked) {
+                $('input[name="notification"]').first().val(1);
+            } else {
+                $('input[name="notification"]').first().val(0);
+            }
+        };
+
+        var comments_switch = document.querySelector('#comments_switch');
+        if(comments_switch) {
+            comments_switch.onchange = function() {
+                if (comments_switch.checked) {
+                    $('input[name="is_comment"]').first().val(1);
+                } else {
+                    $('input[name="is_comment"]').first().val(0);
+                }
+            };
+        }
+        var draft_switch = document.querySelector('#draft_switch');
+        if(draft_switch) {
+            draft_switch.onchange = function() {
+                if (draft_switch.checked) {
+                    $('input[name="is_draft"]').first().val(1);
+                } else {
+                    $('input[name="is_draft"]').first().val(0);
+                }
+            };
+        }
+        var is_short_news_switch = document.querySelector('#is_short_news_switch');
+        if(is_short_news_switch) {
+            is_short_news_switch.onchange = function() {
+                if (is_short_news_switch.checked) {
+                    $('input[name="is_short_news"]').first().val(1);
+                } else {
+                    $('input[name="is_short_news"]').first().val(0);
+                }
+            };
+        }
+
+        var edit_is_short_news_switch = document.querySelector('#edit_is_short_news_switch');
+        if(edit_is_short_news_switch) {
+            edit_is_short_news_switch.onchange = function() {
+                if (edit_is_short_news_switch.checked) {
+                    $('#edit_is_short_news').val(1);
+                } else {
+                    $('#edit_is_short_news').val(0);
+                }
+            };
+        }
+
+        var edit_is_notification = document.querySelector('#edit_is_notification');
+        edit_is_notification.onchange = function() {
+            if (edit_is_notification.checked) {
+                $('#edit_notification').val(1);
+            } else {
+                $('#edit_notification').val(0);
+            }
+        };
+
+        var edit_comments_switch = document.querySelector('#edit_comments_switch');
+        if(edit_comments_switch) {
+            edit_comments_switch.onchange = function() {
+                if (edit_comments_switch.checked) {
+                    $('#edit_is_comment').val(1);
+                } else {
+                    $('#edit_is_comment').val(0);
+                }
+            };
+
+            // Initialize the switch state based on the hidden input value
+            if ($('#edit_is_comment').val() === '1') {
+                edit_comments_switch.checked = true;
+                // Force update the switch UI
+                var event = new Event('change');
+                edit_comments_switch.dispatchEvent(event);
+            }
+        }
+        var edit_draft_switch = document.querySelector('#edit_draft_switch');
+        if(edit_draft_switch) {
+            edit_draft_switch.onchange = function() {
+                if (edit_draft_switch.checked) {
+                    $('#edit_is_draft').val('1');
+                } else {
+                    $('#edit_is_draft').val('0');
+                }
+            };
+        }
+        // if ($('#edit_is_draft').val() == 1 || $('#edit_is_draft').val() == '1') {
+        //     // console.log('edit_draft_switch');
+
+        //     $('#edit_draft_switch').prop('checked', true);
+        //     // Force update the switch UI
+        //     var event = new Event('change');
+        //     edit_draft_switch.dispatchEvent(event);
+        // }
+        $(document).ready(function() {
+            $(document).on('focusin', function(e) {
+                if ($(e.target).closest(".tox-tinymce-aux, .moxman-window, .tam-assetmanager-root")
+                    .length) {
+                    e.stopImmediatePropagation();
+                }
+            });
+            var base_url = "<?php echo e(url('/')); ?>";
+            tinymce.init({
+                selector: "#des, #edit_des",
+                toolbar_mode: "wrap",
+                height: 300,
+                plugins: [
+                    'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+                    'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+                    'insertdatetime', 'media', 'table', 'wordcount'
+                ],
+                toolbar: 'undo redo | blocks | bold italic backcolor | alignleft aligncenter alignright alignjustify bullist numlist outdent indent removeformat link image media',
+                image_uploadtab: false,
+                paste_data_images: false, // Disable image pasting
+                images_upload_url: base_url + "/upload_img",
+                relative_urls: false,
+                remove_script_host: false,
+                file_picker_types: 'image media',
+                media_poster: false,
+                media_alt_source: false,
+                file_picker_callback: function(callback, value, meta) {
+                    if (meta.filetype == "media" || meta.filetype == "image") {
+                        const input = document.createElement('input');
+                        input.setAttribute('type', 'file');
+                        input.setAttribute('accept', 'image/* audio/* video/*');
+                        input.addEventListener('change', (e) => {
+                            const file = e.target.files[0];
+                            var reader = new FileReader();
+                            var fd = new FormData();
+                            var files = file;
+                            fd.append("file", files);
+                            fd.append('filetype', meta.filetype);
+                            fd.append("page", 'news');
+                            // AJAX
+                            jQuery.ajax({
+                                url: base_url + "/upload_img",
+                                type: "post",
+                                data: fd,
+                                contentType: false,
+                                processData: false,
+                                success: function(response) {
+                                    const url = base_url + "/storage/" + response;
+                                    callback(url);
+                                }
+                            });
+                            reader.onload = function(e) {};
+                            reader.readAsDataURL(file);
+                        });
+                        input.click();
+                    }
+                },
+                setup: function(editor) {
+                    editor.on("change keyup", function(e) {
+                        editor.save();
+                        $(editor.getElement()).trigger('change');
+                    });
+                    editor.on('dragover drop', function(e) {
+                        e.preventDefault(); // Prevent the default drag and drop behavior
+                    });
+                }
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        var switcheryInstances = [];
+        var today = new Date().toISOString().split('T')[0];
+        $(document).ready(function(e) {
+            var elems = Array.prototype.slice.call(document.querySelectorAll(".status-switch"));
+            elems.forEach(function(elem) {
+                var switchery = new Switchery(elem, {
+                    size: "small",
+                    color: "#47C363",
+                    secondaryColor: "#EB4141",
+                    jackColor: "#ffff",
+                    jackSecondaryColor: "#ffff",
+                });
+                switcheryInstances.push(switchery);
+            });
+            $('.video_youtube').hide();
+            $('.video_other').hide();
+            $('.video_upload').hide();
+        });
+
+        $(document).on('change', '#content_type', function() {
+            var type = $("#content_type").val();
+            $('.video_youtube').hide();
+            $('.video_other').hide();
+            $('.video_upload').hide();
+            if (type == "video_youtube") {
+                $('.video_youtube').show();
+            } else if (type == "video_other") {
+                $('.video_other').show();
+            } else if (type == "video_upload") {
+                $('.video_upload').show();
+            }
+        });
+
+        $(document).on('change', '#published_date', function(e) {
+            var published_date = $('#published_date').val();
+            $('#show_till').prop('min', published_date);
+            switcheryInstances.forEach(function(switchery) {
+                if (switchery.element.id === 'edit_is_notification') {
+                    if (status == 0) {
+                        switchery.disable();
+                    } else {
+                        switchery.enable();
+                    }
+                }
+            });
+        });
+
+        $(document).on('change', '#edit_content_type', function() {
+            var type = $("#edit_content_type").val();
+            $('.evideo_youtube').hide();
+            $('.evideo_other').hide();
+            $('.evideo_upload').hide();
+            $('#youtube_url').prop('required', false);
+            $('#other_url').prop('required', false);
+            $('#exampleVideoInputFile1_edit').prop('required', false);
+            if (type == "video_youtube") {
+                $('#youtube_url').prop('required', true);
+                $('.evideo_youtube').show();
+            } else if (type == "video_other") {
+                $('#other_url').prop('required', true);
+                $('.evideo_other').show();
+            } else if (type == "video_upload") {
+                var edit_id = $('#edit_id').val();
+                var data = $("#table").bootstrapTable('getRowByUniqueId', edit_id);
+                var old = data.content_type1;
+                if (old != type) {
+                    $('#exampleVideoInputFile1_edit').prop('required', true);
+                }
+                $('.evideo_upload').show();
+            }
+        });
+
+        $(document).on('change', '#edit_published_date', function(e) {
+            var published_date = $('#edit_published_date').val();
+            var status = $('input[name=status]:checked').val();
+            $('#edit_show_till').prop('min', published_date);
+            switcheryInstances1.forEach(function(switchery) {
+                if (switchery.element.id === 'edit_is_notification') {
+                    if (status == 0 || published_date > today) {
+                        switchery.disable();
+                    } else {
+                        switchery.enable();
+                    }
+                }
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        //Clone News
+        $(document).on('click', '.clone-data', function() {
+            var base_url = baseUrl;
+            var id = $(this).data("id");
+            var image = $(this).data("image");
+            var con_value = $(this).data("cvalue");
+            $.ajax({
+                url: base_url + '/clone_news',
+                type: "POST",
+                dataType: "json",
+                data: {
+                    id: id,
+                    image_url: image,
+                    con_value: con_value
+                },
+                success: function(result) {
+                    if (result) {
+                        showSuccessToast(result.message);
+                        setTimeout(function() {
+                            $("#table").bootstrapTable("refresh");
+                        }, 1000);
+                    }
+                }
+            });
+        });
+
+        $("#editDataDesModal form").on("submit", function(e) {
+            e.preventDefault();
+            let form = $(this);
+            let data = form.serialize();
+
+            $.ajax({
+                type: "PUT",
+                url: form.attr("action"),
+                data: data,
+                success: function(response) {
+                    if (!response.error) {
+                        $("#editDataDesModal").modal("hide");
+                        $("#table").bootstrapTable("refresh");
+                        showSuccessToast(response.message);
+                    } else {
+                        showErrorToast(response.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // Handle validation errors
+                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                        showErrorToast(xhr.responseJSON.message);
+                    } else {
+                        showErrorToast('An error occurred. Please try again.');
+                    }
+                    console.error(error);
+                },
+            });
+        });
+
+        var elems = Array.prototype.slice.call(document.querySelectorAll(".edit-status-switch"));
+        var switcheryInstances1 = [];
+        elems.forEach(function(elem) {
+            var switchery = new Switchery(elem, {
+                size: "small",
+                color: "#47C363",
+                secondaryColor: "#EB4141",
+                jackColor: "#ffff",
+                jackSecondaryColor: "#ffff",
+            });
+            switcheryInstances1.push(switchery);
+        });
+    </script>
+
+
+    <script type="text/javascript">
+        $(document).on('input', '#slug, #edit_slug', function () {
+            var clean = $(this).val().replace(/[^a-z0-9-_]/gi, '');
+            $(this).val(clean.toLowerCase());
+        });
+        function getSlug(data, title, slug) {
+            var title1 = $(title).val();
+            if (title1) {
+                data['table'] = 'tbl_news';
+                data['_token'] = "<?php echo e(csrf_token()); ?>";
+                $.ajax({
+                    url: '<?php echo e(route('get-slug')); ?>',
+                    type: "POST",
+                    data: data,
+                    success: function(result) {
+                        if (result) {
+                            $(slug).val(result);
+                        }
+                    },
+                    error: function(errors) {
+                        console.log(errors);
+                    },
+                });
+            } else {
+                $(slug).val('');
+            }
+        }
+        $(document).on('keyup', '#title', function(e) {
+            var data = {
+                'name':  $('#title').val(),
+            };
+            getSlug(data, '#title', '#slug');
+        });
+
+        $(document).on('keyup', '#edit_title', function(e) {
+            var data = {
+                'name':  $('#edit_title').val(),
+                'id':  $('#edit_id').val(),
+            };
+            getSlug(data, '#edit_title', '#edit_slug');
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(document).on('change', '#filter_language_id', function() {
+            $('#table').bootstrapTable('refresh');
+            var data = {
+                language_id: $('#filter_language_id').val(),
+            };
+            var url = '<?php echo e(route('get_category_by_language')); ?>';
+            fetchList(url, data, '#filter_category_id');
+        });
+        $(document).on('change', '#filter_category_id', function() {
+            $('#table').bootstrapTable('refresh');
+            var data = {
+                category_id: $('#filter_category_id').val(),
+            };
+            var url = '<?php echo e(route('get_subcategory_by_category')); ?>';
+            fetchList(url, data, '#filter_subcategory_id');
+        });
+        $(document).on('change', '#filter_subcategory_id', function() {
+            $('#table').bootstrapTable('refresh');
+        });
+        $(document).on('change', '#filter_location_id', function() {
+            $('#table').bootstrapTable('refresh');
+        });
+        $(document).on('change', '#filter_user_id', function() {
+            $('#table').bootstrapTable('refresh');
+        });
+        $(document).on('change', '#filter_status', function() {
+            $('#table').bootstrapTable('refresh');
+        });
+    </script>
+
+    <script type="text/javascript">
+        $('#bulk_delete').click(function() {
+            var request_ids = [];
+            selected = $('#table').bootstrapTable('getSelections');
+            var arr = Object.values(selected);
+            var i;
+            var final_selection = [];
+            var request_ids = arr.map(({
+                id
+            }) => id);
+            if (request_ids.length) {
+                Swal.fire({
+                    title: '<?php echo e(__('are_you_sure')); ?>',
+                    text: 'You won\'t be able to revert this!',
+                    icon: 'error',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, proceed'
+                }).then((result) => {
+                    if (result.value) {
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+                        $.ajax({
+                            type: 'POST',
+                            url: '<?php echo e(url('bulk_news_delete')); ?>',
+                            data: {
+                                request_ids: request_ids
+                            },
+                            success: function(response) {
+                                if (response.error == false) {
+                                    showSuccessToast(response.message);
+                                    $('#table').bootstrapTable('refresh');
+                                } else {
+                                    showErrorToast(response.message);
+                                }
+                            },
+                            error: function(response) {
+                                return showToastMessage(response.message, "error");
+                            }
+                        });
+                    }
+                });
+            } else {
+                var message = '<?php echo e(__('select_data_to_delete')); ?>';
+                showErrorToast(message);
+            }
+        });
+
+
+    </script>
+
+    <script type="text/javascript">
+    // generate with ai script starts here
+    initMetaFieldGeneration({
+        isEditForm: false,
+        buttonSelector: '#generate_meta_fields',
+        routeUrl: '<?php echo e(route("generate-all-meta-fields")); ?>',
+        csrfToken: '<?php echo e(csrf_token()); ?>',
+        languageSelector: '#language_id',
+        titleSelector: '#title',
+        includeDescription: true,
+        includeSummarizedDescription: true,
+        fieldMappings: {
+            metaTags: '#meta_tags',
+            metaTitle: '#meta_title',
+            metaDescription: '#meta_description',
+            description: '#des',
+            summarizedDescription: '#summarized_description',
+        },
+        validationMessages: {
+            selectLanguage: '<?php echo e(__('please_select_language_first')); ?>',
+            enterTitle: '<?php echo e(__('please_enter_title_first')); ?>'
+        }
+    });
+    </script>
+
+    <script>
+
+    </script>
+
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.main', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/admin/resources/views/news.blade.php ENDPATH**/ ?>
